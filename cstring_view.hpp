@@ -54,7 +54,9 @@ class basic_cstring_view {
 
   constexpr basic_cstring_view& operator=(const basic_cstring_view&) noexcept = default;
 
-  // iterator support
+  /*******************************************************************************************************************/
+  /**                                               iterator support                                                **/
+  /*******************************************************************************************************************/
   [[nodiscard]] constexpr const_iterator begin() const noexcept { return sv_.begin(); }
   [[nodiscard]] constexpr const_iterator end() const noexcept { return sv_.end(); }
   [[nodiscard]] constexpr const_iterator cbegin() const noexcept { return sv_.cbegin(); }
@@ -64,13 +66,17 @@ class basic_cstring_view {
   [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept { return sv_.crbegin(); }
   [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept { return sv_.crend(); }
 
-  // capacity
+  /*******************************************************************************************************************/
+  /**                                                  capacity                                                     **/
+  /*******************************************************************************************************************/
   [[nodiscard]] constexpr size_type size() const noexcept { return sv_.size(); }
   [[nodiscard]] constexpr size_type length() const noexcept { return sv_.length(); }
   [[nodiscard]] constexpr size_type max_size() const noexcept { return sv_.max_size(); }
   [[nodiscard]] constexpr bool empty() const noexcept { return sv_.empty(); }
 
-  // element access
+  /*******************************************************************************************************************/
+  /**                                                 element access                                                **/
+  /*******************************************************************************************************************/
   [[nodiscard]] constexpr const_reference operator[](const size_type pos) const {
     assert((pos < this->size()) && "Undefined behavior if pos >= size()!");
     return sv_[pos];
@@ -93,7 +99,9 @@ class basic_cstring_view {
 
   [[nodiscard]] constexpr operator string_view_type() const noexcept { return sv_; }
 
-  // modifiers
+  /*******************************************************************************************************************/
+  /**                                                   modifiers                                                   **/
+  /*******************************************************************************************************************/
   constexpr void remove_prefix(const size_type count) {
     assert((count <= this->size()) && "Undefined behavior if count > size()!");
     return sv_.remove_prefix(count);
@@ -101,7 +109,9 @@ class basic_cstring_view {
   // constexpr void remove_suffix(const size_type n);  // -> not applicable on a basic_cstring_view
   constexpr void swap(basic_cstring_view& sv) noexcept { sv_.swap(sv); }
 
-  // string operations
+  /*******************************************************************************************************************/
+  /**                                               string operations                                               **/
+  /*******************************************************************************************************************/
   [[nodiscard]] constexpr size_type copy(charT* s, const size_type count, const size_type pos = 0) const {
     assert((s != nullptr) && "Undefined behavior if s == nullptr!");
     assert((pos <= this->size()) && "Undefined behavior if pos > size()!");
@@ -146,7 +156,9 @@ class basic_cstring_view {
   [[nodiscard]] constexpr bool ends_with(const charT c) const noexcept { return sv_.ends_with(c); }
   [[nodiscard]] constexpr bool ends_with(const charT* s) const { return sv_.ends_with(s); }
 
-  // searching
+  /*******************************************************************************************************************/
+  /**                                                   searching                                                   **/
+  /*******************************************************************************************************************/
   [[nodiscard]] constexpr size_type find(const string_view_type sv, const size_type pos = 0) const noexcept { return sv_.find(sv, pos); }
   [[nodiscard]] constexpr size_type find(const charT c, const size_type pos = 0) const noexcept { return sv_.find(c, pos); }
   [[nodiscard]] constexpr size_type find(const charT* s, const size_type pos, size_type count) const { return sv_.find(s, pos, count); }
@@ -207,7 +219,9 @@ class basic_cstring_view {
     return sv_.find_last_not_of(s, pos);
   }
 
-  // comparison functions
+  /*******************************************************************************************************************/
+  /**                                              comparison functions                                             **/
+  /*******************************************************************************************************************/
   [[nodiscard]] friend constexpr bool operator==(const basic_cstring_view<charT, traits> lhs,
                                                  const basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ == rhs.sv_;
@@ -241,7 +255,9 @@ class basic_cstring_view {
   }
 #endif
 
-  // inserters and extractors
+  /*******************************************************************************************************************/
+  /**                                            inserters and extractors                                           **/
+  /*******************************************************************************************************************/
   friend std::basic_ostream<charT, traits>& operator<<(std::basic_ostream<charT, traits>& os, const basic_cstring_view<charT, traits> csv) {
     return os << csv.sv_;
   }
@@ -250,7 +266,9 @@ class basic_cstring_view {
   string_view_type sv_;  // exposition only
 };
 
-// typedef names
+/*******************************************************************************************************************/
+/**                                                 typedef names                                                 **/
+/*******************************************************************************************************************/
 using cstring_view = basic_cstring_view<char>;
 #if __cplusplus >= 202002L
 using u8cstring_view = basic_cstring_view<char8_t>;
@@ -262,7 +280,9 @@ using wcstring_view = basic_cstring_view<wchar_t>;
 inline namespace literals {
 inline namespace string_view_literals {
 
-// suffix for basic_cstring_view literals
+/*******************************************************************************************************************/
+/**                                     suffix for basic_cstring_view literals                                    **/
+/*******************************************************************************************************************/
 [[nodiscard]] constexpr util::cstring_view operator"" _csv(const char* str, const std::size_t len) noexcept {
   return util::cstring_view(util::cstring_view::null_terminated, str, len);
 }
@@ -286,7 +306,9 @@ inline namespace string_view_literals {
 
 }  // namespace util
 
-// hash support
+/*******************************************************************************************************************/
+/**                                                  hash support                                                 **/
+/*******************************************************************************************************************/
 namespace std {
 
 template <>
@@ -324,8 +346,10 @@ struct hash<util::wcstring_view> {
 
 }  // namespace std
 
+/*******************************************************************************************************************/
+/**                                            ranges helper templates                                            **/
+/*******************************************************************************************************************/
 #if __cpluspluc >= 202002L
-// ranges helper templates
 template <typename charT, typename traits>
 inline constexpr bool std::ranges::enable_borrowed_range<util::basic_cstring_view<charT, traits>> = true;
 template <typename charT, typename traits>
