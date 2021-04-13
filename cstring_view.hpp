@@ -66,8 +66,8 @@ class basic_cstring_view {
   [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept { return sv_.crbegin(); }
   [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept { return sv_.crend(); }
 
-  [[nodiscard]] friend constexpr const_iterator begin(const basic_cstring_view sv) noexcept { return sv.begin(); }
-  [[nodiscard]] friend constexpr const_iterator end(const basic_cstring_view sv) noexcept { return sv.end(); }
+  [[nodiscard]] friend constexpr const_iterator begin(basic_cstring_view sv) noexcept { return sv.begin(); }
+  [[nodiscard]] friend constexpr const_iterator end(basic_cstring_view sv) noexcept { return sv.end(); }
 
   /*******************************************************************************************************************/
   /**                                                  capacity                                                     **/
@@ -241,28 +241,28 @@ class basic_cstring_view {
   [[nodiscard]] friend constexpr bool operator<=>(const basic_cstring_view<charT, traits> lhs,
                                                   const basic_cstring_view<charT, traits> rhs) noexcept = default;
 #else
-  [[nodiscard]] friend constexpr bool operator==(const basic_cstring_view<charT, traits> lhs,
-                                                 const basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator==(basic_cstring_view<charT, traits> lhs,
+                                                 basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ == rhs.sv_;
   }
-  [[nodiscard]] friend constexpr bool operator!=(const basic_cstring_view<charT, traits> lhs,
-                                                 const basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator!=(basic_cstring_view<charT, traits> lhs,
+                                                 basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ != rhs.sv_;
   }
-  [[nodiscard]] friend constexpr bool operator<(const basic_cstring_view<charT, traits> lhs,
-                                                const basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator<(basic_cstring_view<charT, traits> lhs,
+                                                basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ < rhs.sv_;
   }
-  [[nodiscard]] friend constexpr bool operator<=(const basic_cstring_view<charT, traits> lhs,
-                                                 const basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator<=(basic_cstring_view<charT, traits> lhs,
+                                                 basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ <= rhs.sv_;
   }
-  [[nodiscard]] friend constexpr bool operator>(const basic_cstring_view<charT, traits> lhs,
-                                                const basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator>(basic_cstring_view<charT, traits> lhs,
+                                                basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ > rhs.sv_;
   }
-  [[nodiscard]] friend constexpr bool operator>=(const basic_cstring_view<charT, traits> lhs,
-                                                 const basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator>=(basic_cstring_view<charT, traits> lhs,
+                                                 basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ >= rhs.sv_;
   }
 #endif
@@ -270,7 +270,7 @@ class basic_cstring_view {
   /*******************************************************************************************************************/
   /**                                            inserters and extractors                                           **/
   /*******************************************************************************************************************/
-  friend std::basic_ostream<charT, traits>& operator<<(std::basic_ostream<charT, traits>& os, const basic_cstring_view<charT, traits> csv) {
+  friend std::basic_ostream<charT, traits>& operator<<(std::basic_ostream<charT, traits>& os, basic_cstring_view<charT, traits> csv) {
     return os << csv.sv_;
   }
 
