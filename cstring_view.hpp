@@ -7,7 +7,7 @@
 #include <cstddef>     // std::size_t
 #include <functional>  // std::hash
 #include <ostream>     // std::basic_ostream
-#if __cplusplus >= 202002L
+#if __cplusplus >= 202002L && __has_include(<ranges>)
 #include <ranges>  // std::enable_borrowed_range, std::enable_view
 #endif
 #include <string>       // std::basic_string, std::char_traits
@@ -361,7 +361,7 @@ struct hash<util::wcstring_view> {
 /*******************************************************************************************************************/
 /**                                            ranges helper templates                                            **/
 /*******************************************************************************************************************/
-#if __cpluspluc >= 202002L
+#if __cpluspluc >= 202002L && __has_include(<ranges>)
 template <typename charT, typename traits>
 inline constexpr bool std::ranges::enable_borrowed_range<util::basic_cstring_view<charT, traits>> = true;
 template <typename charT, typename traits>
