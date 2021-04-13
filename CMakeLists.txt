@@ -6,7 +6,17 @@ project(cstring_view
 
 add_executable(cstring_view examples.cpp cstring_view.hpp)
 
-target_compile_features(cstring_view PUBLIC cxx_std_17)
+
+include(CheckCXXCompilerFlag)
+
+# Check for standard to use
+check_cxx_compiler_flag(-std=c++20 HAVE_FLAG_STD_CXX20)
+if(HAVE_FLAG_STD_CXX20)
+    target_compile_features(cstring_view PUBLIC cxx_std_20)
+else()
+    target_compile_features(cstring_view PUBLIC cxx_std_17)
+endif()
+
 
 if (MSVC)
     # warning level 4 and all warnings as errors
