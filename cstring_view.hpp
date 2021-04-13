@@ -66,6 +66,9 @@ class basic_cstring_view {
   [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept { return sv_.crbegin(); }
   [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept { return sv_.crend(); }
 
+  [[nodiscard]] friend constexpr const_iterator begin(const basic_cstring_view sv) noexcept { return sv.begin(); }
+  [[nodiscard]] friend constexpr const_iterator end(const basic_cstring_view sv) noexcept { return sv.end(); }
+
   /*******************************************************************************************************************/
   /**                                                  capacity                                                     **/
   /*******************************************************************************************************************/
