@@ -149,12 +149,27 @@ class basic_cstring_view {
     return sv_.compare(pos, count1, s, count2);
   }
 
+#if __cplusplus >= 202002L
   [[nodiscard]] constexpr bool starts_with(const string_view_type sv) const noexcept { return sv_.starts_with(sv); }
   [[nodiscard]] constexpr bool starts_with(const charT c) const noexcept { return sv_.starts_with(c); }
   [[nodiscard]] constexpr bool starts_with(const charT* s) const { return sv_.starts_with(s); }
   [[nodiscard]] constexpr bool ends_with(const string_view_type sv) const noexcept { return sv_.ends_with(sv); }
   [[nodiscard]] constexpr bool ends_with(const charT c) const noexcept { return sv_.ends_with(c); }
   [[nodiscard]] constexpr bool ends_with(const charT* s) const { return sv_.ends_with(s); }
+#else
+  [[nodiscard]] constexpr bool starts_with(const string_view_type sv) const noexcept { return this->substr(0, sv.size()) == sv; }
+  [[nodiscard]] constexpr bool starts_with(const charT c) const noexcept { return !this->empty() && traits::eq(this->front(), c); }
+  [[nodiscard]] constexpr bool starts_with(const charT* s) const { return this->starts_with(string_view_type(s)); }
+  [[nodiscard]] constexpr bool ends_with(const string_view_type sv) const noexcept {
+    return this->size() >= sv.size() && this->compare(this->size() - sv.size(), npos, sv) == 0;
+  }
+  [[nodiscard]] constexpr bool ends_with(const charT c) const noexcept { return !this->empty() && traits::eq(this->back(), c); }
+  [[nodiscard]] constexpr bool ends_with(const charT* s) const { return this->ends_with(string_view_type(s)); }
+#endif
+
+  [[nodiscard]] constexpr bool contains(const string_view_type sv) const noexcept { return this->find(sv) != npos; }
+  [[nodiscard]] constexpr bool contains(const charT c) const noexcept { return this->find(c) != npos; }
+  [[nodiscard]] constexpr bool contains(const charT* s) const { return this->find(s) != npos; }
 
   /*******************************************************************************************************************/
   /**                                                   searching                                                   **/
@@ -169,9 +184,6 @@ class basic_cstring_view {
   [[nodiscard]] constexpr size_type rfind(const charT c, const size_type pos = npos) const noexcept { return sv_.rfind(c, pos); }
   [[nodiscard]] constexpr size_type rfind(const charT* s, const size_type pos, size_type count) const { return sv_.rfind(s, pos, count); }
   [[nodiscard]] constexpr size_type rfind(const charT* s, const size_type pos = npos) const { return sv_.rfind(s, pos); }
-  [[nodiscard]] constexpr bool contains(const string_view_type sv) const noexcept { return this->find(sv) != npos; }
-  [[nodiscard]] constexpr bool contains(const charT c) const noexcept { return this->find(c) != npos; }
-  [[nodiscard]] constexpr bool contains(const charT* s) const { return this->find(s) != npos; }
 
   [[nodiscard]] constexpr size_type find_first_of(const string_view_type sv, const size_type pos = 0) const noexcept {
     return sv_.find_first_of(sv, pos);
