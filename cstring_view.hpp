@@ -222,17 +222,14 @@ class basic_cstring_view {
   /*******************************************************************************************************************/
   /**                                              comparison functions                                             **/
   /*******************************************************************************************************************/
+#if __cplusplus >= 202002L
+  [[nodiscard]] friend constexpr bool operator<=>(const basic_cstring_view<charT, traits> lhs,
+                                                  const basic_cstring_view<charT, traits> rhs) noexcept = default;
+#else
   [[nodiscard]] friend constexpr bool operator==(const basic_cstring_view<charT, traits> lhs,
                                                  const basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ == rhs.sv_;
   }
-
-#if __cplusplus >= 202002L
-  [[nodiscard]] friend constexpr bool operator<=>(const basic_cstring_view<charT, traits> lhs,
-                                                  const basic_cstring_view<charT, traits> rhs) noexcept {
-    return lhs.sv_ <=> rhs.sv_;
-  }
-#else
   [[nodiscard]] friend constexpr bool operator!=(const basic_cstring_view<charT, traits> lhs,
                                                  const basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ != rhs.sv_;
