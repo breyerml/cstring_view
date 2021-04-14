@@ -18,8 +18,8 @@ potentially break the invariant of null termination.
 - Enabled `starts_with` and `ends_with` delegation to `std::string_view` only if `__cplusplus == 202002L`, otherwise a
   custom implementation based on *cppreference* is used.
 - Added `contains()` functions proposed for C++23.
-- Added `assert()` to various functions.
-- Implemented the comparison functions using a defaulted `operator<=>`if `__cplusplus == 202002L`.
+- Added custom `assert()` to various functions.
+- Implemented the comparison functions using a defaulted `operator<=>` if `__cplusplus == 202002L`.
 - Added ranges helper templates, which are only enabled if `__cplusplus == 202002L && __has_include(<ranges>)`.
 
 ## Usage
