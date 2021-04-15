@@ -1,3 +1,5 @@
+// (c) 2021 Marcel Breyer
+// This code is licensed under MIT license (see LICENSE.md for details)
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1402r0.pdf
 
 #ifndef UTIL_CSTRING_VIEW_HPP
