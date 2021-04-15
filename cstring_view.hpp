@@ -1,7 +1,7 @@
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1402r0.pdf
 
-#ifndef CSTRING_VIEW_HPP
-#define CSTRING_VIEW_HPP
+#ifndef UTIL_CSTRING_VIEW_HPP
+#define UTIL_CSTRING_VIEW_HPP
 
 #include <cassert>     // assert
 #include <cstddef>     // std::size_t
@@ -368,4 +368,4 @@ template <typename charT, typename traits>
 inline constexpr bool std::ranges::enable_view<util::basic_cstring_view<charT, traits>> = true;
 #endif
 
-#endif  // CSTRING_VIEW_HPP
+#endif  // UTIL_CSTRING_VIEW_HPP
