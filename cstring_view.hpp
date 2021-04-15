@@ -115,7 +115,7 @@ class basic_cstring_view {
   /*******************************************************************************************************************/
   /**                                               string operations                                               **/
   /*******************************************************************************************************************/
-  [[nodiscard]] constexpr size_type copy(charT* s, const size_type count, const size_type pos = 0) const {
+  constexpr size_type copy(charT* s, const size_type count, const size_type pos = 0) const {
     assert((s != nullptr) && "Undefined behavior if s == nullptr!");
     assert((pos <= this->size()) && "Undefined behavior if pos > size()!");
     return sv_.copy(s, count, pos);
