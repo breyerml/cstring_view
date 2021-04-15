@@ -241,28 +241,22 @@ class basic_cstring_view {
   [[nodiscard]] friend constexpr bool operator<=>(const basic_cstring_view<charT, traits> lhs,
                                                   const basic_cstring_view<charT, traits> rhs) noexcept = default;
 #else
-  [[nodiscard]] friend constexpr bool operator==(basic_cstring_view<charT, traits> lhs,
-                                                 basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator==(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ == rhs.sv_;
   }
-  [[nodiscard]] friend constexpr bool operator!=(basic_cstring_view<charT, traits> lhs,
-                                                 basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator!=(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ != rhs.sv_;
   }
-  [[nodiscard]] friend constexpr bool operator<(basic_cstring_view<charT, traits> lhs,
-                                                basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator<(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ < rhs.sv_;
   }
-  [[nodiscard]] friend constexpr bool operator<=(basic_cstring_view<charT, traits> lhs,
-                                                 basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator<=(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ <= rhs.sv_;
   }
-  [[nodiscard]] friend constexpr bool operator>(basic_cstring_view<charT, traits> lhs,
-                                                basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator>(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ > rhs.sv_;
   }
-  [[nodiscard]] friend constexpr bool operator>=(basic_cstring_view<charT, traits> lhs,
-                                                 basic_cstring_view<charT, traits> rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator>=(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ >= rhs.sv_;
   }
 #endif
