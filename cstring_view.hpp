@@ -3,15 +3,15 @@
 #ifndef UTIL_CSTRING_VIEW_HPP
 #define UTIL_CSTRING_VIEW_HPP
 
-#include <cassert>     // assert
-#include <cstddef>     // std::size_t
-#include <functional>  // std::hash
-#include <ostream>     // std::basic_ostream
+#include <cassert>      // assert
+#include <cstddef>      // std::size_t
+#include <functional>   // std::hash
+#include <ostream>      // std::basic_ostream
+#include <string>       // std::basic_string, std::char_traits
+#include <string_view>  // std::basic_string_view
 #if __cplusplus >= 202002L && __has_include(<ranges>)
 #include <ranges>  // std::enable_borrowed_range, std::enable_view
 #endif
-#include <string>       // std::basic_string, std::char_traits
-#include <string_view>  // std::basic_string_view
 
 namespace util {
 
