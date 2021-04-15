@@ -21,6 +21,7 @@ potentially break the invariant of null termination.
 - Added custom `assert()` to various functions.
 - Implemented the comparison functions using a defaulted `operator<=>` if `__cplusplus == 202002L`.
 - Added ranges helper templates, which are only enabled if `__cplusplus == 202002L && __has_include(<ranges>)`.
+- Added `[[nodiscard]]` to almost all functions.
 
 ## Usage
 
