@@ -87,7 +87,6 @@ class basic_cstring_view {
     return sv_[pos];
   }
   [[nodiscard]] constexpr const_reference at(const size_type pos) const {
-    assert((pos < this->size()) && "Undefined behavior if pos >= size()!");
     return sv_.at(pos);
   }
   [[nodiscard]] constexpr const_reference front() const {
