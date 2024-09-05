@@ -120,7 +120,7 @@ class basic_cstring_view {
     return sv_.remove_prefix(count);
   }
   // constexpr void remove_suffix(const size_type n);  // -> not applicable on a basic_cstring_view
-  constexpr void swap(basic_cstring_view& sv) noexcept { sv_.swap(sv); }
+  constexpr void swap(basic_cstring_view& sv) noexcept { sv_.swap(sv.sv_); }
 
   /*******************************************************************************************************************/
   /**                                               string operations                                               **/
