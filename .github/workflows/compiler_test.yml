@@ -1,0 +1,60 @@
+name: Test with GCC, Clang and MSVC
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  GCC-Clang-Tests:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        compiler: [g++-9, g++-10, g++-11, g++-12, clang-11, clang-12, clang-13, clang-14, clang-15]
+      fail-fast: false
+    steps:
+      - name: "Install ${{ matrix.compiler }}"
+        run: |
+          echo "deb http://dk.archive.ubuntu.com/ubuntu/ jammy main universe" | sudo tee -a /etc/apt/sources.list
+          sudo apt update
+          sudo apt upgrade
+          sudo apt install ${{ matrix.compiler }}
+          ${{ matrix.compiler }} -v
+      - name: "Install cmake 3.20"
+        uses: lukka/get-cmake@v3.20.1
+      - name: "Checkout repo"
+        uses: actions/checkout@v4
+      - name: "Build project and run tests"
+        run: |
+          if [[ ${{ matrix.compiler }} == g++* ]]; then
+            export PRESET=gcc
+            export COMPILER=${{ matrix.compiler }}
+          else
+            export PRESET=clang
+            export COMPILER=$(echo ${{ matrix.compiler }} | sed "s/clang/clang++/")
+          fi
+          cmake --preset $PRESET -DCPP_UTIL_ENABLE_TESTS=ON -DCMAKE_CXX_COMPILER=$COMPILER .
+          cmake --build --preset $PRESET
+          ctest --preset $PRESET
+
+  MSVC-Tests:
+    runs-on: windows-2022
+    strategy:
+      matrix:
+        compiler: [14.29]
+      fail-fast: false
+    steps:
+      - name: "Install MSVC ${{ matrix.compiler }}"
+        uses: ilammy/msvc-dev-cmd@v1.13.0
+        with:
+          toolset: ${{ matrix.compiler }}
+      - name: "Install cmake 3.20"
+        uses: lukka/get-cmake@v3.20.1
+      - name: "Checkout repo"
+        uses: actions/checkout@v2
+      - name: "Build project and run tests"
+        run: |
+          cmake --preset msvc -G "NMake Makefiles" -DCPP_UTIL_ENABLE_TESTS=ON -DCMAKE_CXX_COMPILER=CL -DCMAKE_CXX_COMPILER_FORCED=ON .
+          cmake --build --preset msvc
+          ctest --preset msvc
