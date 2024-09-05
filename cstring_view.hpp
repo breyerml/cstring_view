@@ -17,7 +17,7 @@
 #include <string_view>  // std::basic_string_view
 
 #if defined(__cpp_impl_three_way_comparison) && defined(__cpp_lib_three_way_comparison)
-#include <compare>
+#include <compare>  // std::strong_ordering
 #endif
 
 #if defined(__cpp_lib_ranges)
@@ -248,8 +248,10 @@ class basic_cstring_view {
   /**                                              comparison functions                                             **/
   /*******************************************************************************************************************/
 #if defined(__cpp_impl_three_way_comparison) && defined(__cpp_lib_three_way_comparison)
-  [[nodiscard]] friend constexpr bool operator<=>(const basic_cstring_view<charT, traits> lhs,
-                                                  const basic_cstring_view<charT, traits> rhs) noexcept = default;
+  [[nodiscard]] friend constexpr bool operator==(const basic_cstring_view<charT, traits> lhs,
+                                                 const basic_cstring_view<charT, traits> rhs) noexcept = default;
+  [[nodiscard]] friend constexpr std::strong_ordering operator<=>(const basic_cstring_view<charT, traits> lhs,
+                                                                  const basic_cstring_view<charT, traits> rhs) noexcept = default;
 #else
   [[nodiscard]] friend constexpr bool operator==(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
     return lhs.sv_ == rhs.sv_;
