@@ -31,5 +31,6 @@
 ### JetBrains template
 .idea/
 cmake-build-*/
+build*/
 
 .clang-format
