@@ -1,82 +1,86 @@
-#include <cstring>
-#include <iostream>
-#include <string_view>
-
 #include "cstring_view.hpp"
 
-void print(util::cstring_view str = util::cstring_view{}) { std::cout << str << std::endl; }
+#include <cstring>      // std::strcmp
+#include <iostream>     // std::cout
+#include <ios>          // std::boolalpha
+#include <string>       // std::string
+#include <string_view>  // std::string_view
+
+void print(cpp_util::cstring_view str = cpp_util::cstring_view{}) {
+    std::cout << str << "\n";
+}
 
 int main() {
   {
     print();
-    print(util::cstring_view{"cstring_view"});
+    print(cpp_util::cstring_view{ "cstring_view" });
     print("const char*");
-    print(std::string{"std::string"});
+    print(std::string{ "std::string" });
 
-    std::string_view sv1{"const char* + length"};
+    std::string_view sv1{ "const char* + length" };
     // explicitly say that string is null-terminated
-    util::cstring_view csv1{util::cstring_view::null_terminated, sv1.data(), sv1.length()};
+    cpp_util::cstring_view csv1{ cpp_util::cstring_view::null_terminated, sv1.data(), sv1.length() };
     print(csv1);
 
-    std::string_view sv2{"std::string_view"};
+    std::string_view sv2{ "std::string_view" };
     // explicitly say that string is null-terminated
-    util::cstring_view csv2{util::cstring_view::null_terminated, sv2};
+    cpp_util::cstring_view csv2{ cpp_util::cstring_view::null_terminated, sv2 };
     print(csv2);
 
     char arr[] = "char* + length";
     // explicitly say that string is null-terminated
-    print(util::cstring_view{util::cstring_view::null_terminated, arr, 14});
+    print(cpp_util::cstring_view{ cpp_util::cstring_view::null_terminated, arr, 14} );
   }
 
-  using namespace util::string_view_literals;
+  using namespace cpp_util::string_view_literals;
   auto csv = "Hello, World!"_csv;
 
   for (const char c : csv) {
     std::cout << c << ' ';
   }
 
-  std::cout << std::endl << std::boolalpha;
-  std::cout << (csv.size() == csv.length()) << std::endl;
-  std::cout << csv.empty() << std::endl << std::endl;
+  std::cout << "\n" << std::boolalpha;
+  std::cout << (csv.size() == csv.length()) << "\n";
+  std::cout << csv.empty() << "\n" << "\n";
 
-  std::cout << (csv[1] == 'e') << std::endl;
-  std::cout << (csv.at(2) == 'l') << std::endl;
-  std::cout << (csv.front() == 'H') << std::endl;
-  std::cout << (csv.back() == '!') << std::endl;
-  std::cout << (std::strcmp(csv.c_str(), "Hello, World!") == 0) << std::endl;
-  std::cout << static_cast<std::string_view>(csv) << std::endl;
+  std::cout << (csv[1] == 'e') << "\n";
+  std::cout << (csv.at(2) == 'l') << "\n";
+  std::cout << (csv.front() == 'H') << "\n";
+  std::cout << (csv.back() == '!') << "\n";
+  std::cout << (std::strcmp(csv.c_str(), "Hello, World!") == 0) << "\n";
+  std::cout << static_cast<std::string_view>(csv) << "\n";
 
   auto csv_copy = csv;
   csv_copy.remove_prefix(7);
-  std::cout << csv_copy << std::endl;
+  std::cout << csv_copy << "\n";
   auto csv_copy2 = csv;
-  std::cout << csv_copy2.substr(7) << std::endl;
+  std::cout << csv_copy2.substr(7) << "\n";
 
-  std::cout << csv.compare("12345") << std::endl;
-  std::cout << csv.compare("Hello") << std::endl;
-  std::cout << csv.compare(csv) << std::endl;
+  std::cout << csv.compare("12345") << "\n";
+  std::cout << csv.compare("Hello") << "\n";
+  std::cout << csv.compare(csv) << "\n";
 
-  std::cout << csv.starts_with("Hello") << std::endl;
-  std::cout << csv.ends_with("World!") << std::endl;
-  std::cout << csv.contains("123") << std::endl;
+  std::cout << csv.starts_with("Hello") << "\n";
+  std::cout << csv.ends_with("World!") << "\n";
+  std::cout << csv.contains("123") << "\n";
 
-  std::cout << csv.find("World!") << std::endl;
-  std::cout << csv.find('o') << std::endl;
-  std::cout << csv.rfind('o') << std::endl;
+  std::cout << csv.find("World!") << "\n";
+  std::cout << csv.find('o') << "\n";
+  std::cout << csv.rfind('o') << "\n";
 
-  std::cout << csv.find_first_of('o') << std::endl;
-  std::cout << csv.find_last_of('o') << std::endl;
-  std::cout << csv.find_first_not_of("Hl!") << std::endl;
-  std::cout << csv.find_last_not_of("Hl!") << std::endl;
+  std::cout << csv.find_first_of('o') << "\n";
+  std::cout << csv.find_last_of('o') << "\n";
+  std::cout << csv.find_first_not_of("Hl!") << "\n";
+  std::cout << csv.find_last_not_of("Hl!") << "\n";
 
   auto csv2 = "Hello, World!"_csv;
   auto csv3 = "12345"_csv;
-  std::cout << (csv == csv2) << std::endl;
-  std::cout << (csv == csv3) << std::endl;
-  std::cout << (csv != csv2) << std::endl;
-  std::cout << (csv != csv3) << std::endl;
+  std::cout << (csv == csv2) << "\n";
+  std::cout << (csv == csv3) << "\n";
+  std::cout << (csv != csv2) << "\n";
+  std::cout << (csv != csv3) << "\n";
 
-  std::cout << csv << std::endl;
+  std::cout << csv << "\n";
 
   return 0;
 }

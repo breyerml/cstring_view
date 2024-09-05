@@ -1,9 +1,13 @@
-// (c) 2021 Marcel Breyer
-// This code is licensed under MIT license (see LICENSE.md for details)
-// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1402r0.pdf
+/**
+ * Copyright (C) 2021 - Marcel Breyer - All Rights Reserved
+ * Licensed under the MIT License. See LICENSE.md file in the project root for full license information.
+ *
+ * Implements a string_view with null some null-termination guarantees.
+ * Also see: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1402r0.pdf.
+ */
 
-#ifndef UTIL_CSTRING_VIEW_HPP
-#define UTIL_CSTRING_VIEW_HPP
+#ifndef CPP_util_CSTRING_VIEW_HPP
+#define CPP_util_CSTRING_VIEW_HPP
 
 #include <cassert>      // assert
 #include <cstddef>      // std::size_t
@@ -11,11 +15,16 @@
 #include <ostream>      // std::basic_ostream
 #include <string>       // std::basic_string, std::char_traits
 #include <string_view>  // std::basic_string_view
-#if __cplusplus >= 202002L && __has_include(<ranges>)
+
+#if defined(__cpp_impl_three_way_comparison) && defined(__cpp_lib_three_way_comparison)
+#include <compare>
+#endif
+
+#if defined(__cpp_lib_ranges)
 #include <ranges>  // std::enable_borrowed_range, std::enable_view
 #endif
 
-namespace util {
+namespace cpp_util {
 
 template <typename charT, typename traits = std::char_traits<charT>>
 class basic_cstring_view {
@@ -48,11 +57,11 @@ class basic_cstring_view {
   /*******************************************************************************************************************/
   constexpr basic_cstring_view() noexcept = default;
   constexpr basic_cstring_view(const basic_cstring_view&) noexcept = default;
-  constexpr basic_cstring_view(const charT* s) : sv_{s} {}
-  constexpr basic_cstring_view(const std::basic_string<charT, traits>& str) : sv_{str} {}
+  constexpr basic_cstring_view(const charT* s) : sv_{ s } {}
+  constexpr basic_cstring_view(const std::basic_string<charT, traits>& str) : sv_{ str } {}
 
-  constexpr basic_cstring_view(null_terminated_t, const charT* s, const size_type len) : sv_{s, len} {}
-  constexpr basic_cstring_view(null_terminated_t, const string_view_type& sv) noexcept : sv_{sv} {}
+  constexpr basic_cstring_view(null_terminated_t, const charT* s, const size_type len) : sv_{ s, len } {}
+  constexpr basic_cstring_view(null_terminated_t, const string_view_type& sv) noexcept : sv_{ sv } {}
 
   constexpr basic_cstring_view& operator=(const basic_cstring_view&) noexcept = default;
 
@@ -153,7 +162,7 @@ class basic_cstring_view {
     return sv_.compare(pos, count1, s, count2);
   }
 
-#if __cplusplus >= 202002L
+#if defined(__cpp_lib_starts_ends_with)
   [[nodiscard]] constexpr bool starts_with(const string_view_type sv) const noexcept { return sv_.starts_with(sv); }
   [[nodiscard]] constexpr bool starts_with(const charT c) const noexcept { return sv_.starts_with(c); }
   [[nodiscard]] constexpr bool starts_with(const charT* s) const { return sv_.starts_with(s); }
@@ -238,7 +247,7 @@ class basic_cstring_view {
   /*******************************************************************************************************************/
   /**                                              comparison functions                                             **/
   /*******************************************************************************************************************/
-#if __cplusplus >= 202002L
+#if defined(__cpp_impl_three_way_comparison) && defined(__cpp_lib_three_way_comparison)
   [[nodiscard]] friend constexpr bool operator<=>(const basic_cstring_view<charT, traits> lhs,
                                                   const basic_cstring_view<charT, traits> rhs) noexcept = default;
 #else
@@ -273,11 +282,23 @@ class basic_cstring_view {
   string_view_type sv_;  // exposition only
 };
 
+  /*******************************************************************************************************************/
+  /**                                               deduction guides                                                **/
+  /*******************************************************************************************************************/
+#if defined(__cpp_deduction_guides)
+    template <typename It, typename End>
+    basic_cstring_view(It, End) -> basic_cstring_view<typename std::iterator_traits<It>::value_type>;
+#if defined(__cpp_lib_ranges)
+    template <typename R>
+    basic_cstring_view(R&&) -> basic_cstring_view<std::ranges::range_value_t<R>>;
+#endif
+#endif
+
 /*******************************************************************************************************************/
 /**                                                 typedef names                                                 **/
 /*******************************************************************************************************************/
 using cstring_view = basic_cstring_view<char>;
-#if __cplusplus >= 202002L
+#if defined(__cpp_char8_t)
 using u8cstring_view = basic_cstring_view<char8_t>;
 #endif
 using u16cstring_view = basic_cstring_view<char16_t>;
@@ -290,28 +311,28 @@ inline namespace string_view_literals {
 /*******************************************************************************************************************/
 /**                                     suffix for basic_cstring_view literals                                    **/
 /*******************************************************************************************************************/
-[[nodiscard]] constexpr util::cstring_view operator"" _csv(const char* str, const std::size_t len) noexcept {
-  return util::cstring_view(util::cstring_view::null_terminated, str, len);
+[[nodiscard]] constexpr cpp_util::cstring_view operator"" _csv(const char* str, const std::size_t len) noexcept {
+  return { cpp_util::cstring_view::null_terminated, str, len };
 }
-#if __cplusplus >= 202002L
-[[nodiscard]] constexpr util::u8cstring_view operator"" _csv(const char8_t* str, const std::size_t len) noexcept {
-  return util::u8cstring_view(util::u8cstring_view::null_terminated, str, len);
+#if defined(__cpp_char8_t)
+[[nodiscard]] constexpr cpp_util::u8cstring_view operator"" _csv(const char8_t* str, const std::size_t len) noexcept {
+  return { cpp_util::u8cstring_view::null_terminated, str, len };
 }
 #endif
-[[nodiscard]] constexpr util::u16cstring_view operator"" _csv(const char16_t* str, const std::size_t len) noexcept {
-  return util::u16cstring_view(util::u16cstring_view::null_terminated, str, len);
+[[nodiscard]] constexpr cpp_util::u16cstring_view operator"" _csv(const char16_t* str, const std::size_t len) noexcept {
+  return { cpp_util::u16cstring_view::null_terminated, str, len };
 }
-[[nodiscard]] constexpr util::u32cstring_view operator"" _csv(const char32_t* str, const std::size_t len) noexcept {
-  return util::u32cstring_view(util::u32cstring_view::null_terminated, str, len);
+[[nodiscard]] constexpr cpp_util::u32cstring_view operator"" _csv(const char32_t* str, const std::size_t len) noexcept {
+  return { cpp_util::u32cstring_view::null_terminated, str, len };
 }
-[[nodiscard]] constexpr util::wcstring_view operator"" _csv(const wchar_t* str, const std::size_t len) noexcept {
-  return util::wcstring_view(util::wcstring_view::null_terminated, str, len);
+[[nodiscard]] constexpr cpp_util::wcstring_view operator"" _csv(const wchar_t* str, const std::size_t len) noexcept {
+  return { cpp_util::wcstring_view::null_terminated, str, len };
 }
 
 }  // namespace string_view_literals
 }  // namespace literals
 
-}  // namespace util
+}  // namespace cpp_util
 
 /*******************************************************************************************************************/
 /**                                                  hash support                                                 **/
@@ -319,35 +340,35 @@ inline namespace string_view_literals {
 namespace std {
 
 template <>
-struct hash<util::cstring_view> {
-  [[nodiscard]] std::size_t operator()(const util::cstring_view csv) {
-    return std::hash<typename util::cstring_view::string_view_type>{}(csv);
+struct hash<cpp_util::cstring_view> {
+  [[nodiscard]] std::size_t operator()(const cpp_util::cstring_view csv) {
+    return std::hash<typename cpp_util::cstring_view::string_view_type>{}(csv);
   }
 };
-#if __cplusplus >= 202002L
+#if defined(__cpp_char8_t)
 template <>
-struct hash<util::u8cstring_view> {
-  [[nodiscard]] std::size_t operator()(const util::u8cstring_view csv) {
-    return std::hash<typename util::u8cstring_view::string_view_type>{}(csv);
+struct hash<cpp_util::u8cstring_view> {
+  [[nodiscard]] std::size_t operator()(const cpp_util::u8cstring_view csv) {
+    return std::hash<typename cpp_util::u8cstring_view::string_view_type>{}(csv);
   }
 };
 #endif
 template <>
-struct hash<util::u16cstring_view> {
-  [[nodiscard]] std::size_t operator()(const util::u16cstring_view csv) {
-    return std::hash<typename util::u16cstring_view::string_view_type>{}(csv);
+struct hash<cpp_util::u16cstring_view> {
+  [[nodiscard]] std::size_t operator()(const cpp_util::u16cstring_view csv) {
+    return std::hash<typename cpp_util::u16cstring_view::string_view_type>{}(csv);
   }
 };
 template <>
-struct hash<util::u32cstring_view> {
-  [[nodiscard]] std::size_t operator()(const util::u32cstring_view csv) {
-    return std::hash<typename util::u32cstring_view::string_view_type>{}(csv);
+struct hash<cpp_util::u32cstring_view> {
+  [[nodiscard]] std::size_t operator()(const cpp_util::u32cstring_view csv) {
+    return std::hash<typename cpp_util::u32cstring_view::string_view_type>{}(csv);
   }
 };
 template <>
-struct hash<util::wcstring_view> {
-  [[nodiscard]] std::size_t operator()(const util::wcstring_view csv) {
-    return std::hash<typename util::wcstring_view::string_view_type>{}(csv);
+struct hash<cpp_util::wcstring_view> {
+  [[nodiscard]] std::size_t operator()(const cpp_util::wcstring_view csv) {
+    return std::hash<typename cpp_util::wcstring_view::string_view_type>{}(csv);
   }
 };
 
@@ -356,11 +377,11 @@ struct hash<util::wcstring_view> {
 /*******************************************************************************************************************/
 /**                                            ranges helper templates                                            **/
 /*******************************************************************************************************************/
-#if __cpluspluc >= 202002L && __has_include(<ranges>)
+#if defined(__cpp_lib_ranges)
 template <typename charT, typename traits>
-inline constexpr bool std::ranges::enable_borrowed_range<util::basic_cstring_view<charT, traits>> = true;
+inline constexpr bool std::ranges::enable_borrowed_range<cpp_util::basic_cstring_view<charT, traits>> = true;
 template <typename charT, typename traits>
-inline constexpr bool std::ranges::enable_view<util::basic_cstring_view<charT, traits>> = true;
+inline constexpr bool std::ranges::enable_view<cpp_util::basic_cstring_view<charT, traits>> = true;
 #endif
 
-#endif  // UTIL_CSTRING_VIEW_HPP
+#endif  // CPP_util_CSTRING_VIEW_HPP
