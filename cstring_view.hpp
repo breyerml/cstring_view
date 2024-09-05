@@ -284,18 +284,6 @@ class basic_cstring_view {
   string_view_type sv_;  // exposition only
 };
 
-  /*******************************************************************************************************************/
-  /**                                               deduction guides                                                **/
-  /*******************************************************************************************************************/
-#if defined(__cpp_deduction_guides)
-    template <typename It, typename End>
-    basic_cstring_view(It, End) -> basic_cstring_view<typename std::iterator_traits<It>::value_type>;
-#if defined(__cpp_lib_ranges)
-    template <typename R>
-    basic_cstring_view(R&&) -> basic_cstring_view<std::ranges::range_value_t<R>>;
-#endif
-#endif
-
 /*******************************************************************************************************************/
 /**                                                 typedef names                                                 **/
 /*******************************************************************************************************************/
