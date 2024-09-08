@@ -221,8 +221,8 @@ class basic_cstring_view {
   /**                                              comparison functions                                             **/
   /*******************************************************************************************************************/
 #if defined(__cpp_impl_three_way_comparison) && defined(__cpp_lib_three_way_comparison)
-  [[nodiscard]] friend constexpr bool operator==(const basic_cstring_view lhs, const basic_cstring_view rhs) noexcept = default;
-  [[nodiscard]] friend constexpr std::strong_ordering operator<=>(const basic_cstring_view, const basic_cstring_view rhs) noexcept = default;
+  [[nodiscard]] friend constexpr bool operator==(const basic_cstring_view lhs, const basic_cstring_view rhs) noexcept { return lhs.sv_ == rhs.sv_; }
+  [[nodiscard]] friend constexpr std::strong_ordering operator<=>(const basic_cstring_view lhs, const basic_cstring_view rhs) noexcept { return lhs.sv_ <=> rhs.sv_; }
 #else
   [[nodiscard]] friend constexpr bool operator==(basic_cstring_view lhs, basic_cstring_view rhs) noexcept { return lhs.sv_ == rhs.sv_; }
   [[nodiscard]] friend constexpr bool operator!=(basic_cstring_view lhs, basic_cstring_view rhs) noexcept { return lhs.sv_ != rhs.sv_; }
