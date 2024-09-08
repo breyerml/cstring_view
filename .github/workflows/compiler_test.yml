@@ -49,8 +49,8 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1.13.0
         with:
           toolset: ${{ matrix.compiler }}
-      - name: "Install cmake 3.20"
-        uses: lukka/get-cmake@v3.20.1
+      - name: "Install cmake 3.30"
+        uses: lukka/get-cmake@v3.30.3
       - name: "Checkout repo"
         uses: actions/checkout@v2
       - name: "Build project and run tests"
