@@ -191,58 +191,31 @@ class basic_cstring_view {
   [[nodiscard]] constexpr size_type find(const charT c, const size_type pos = 0) const noexcept { return sv_.find(c, pos); }
   [[nodiscard]] constexpr size_type find(const charT* s, const size_type pos, size_type count) const { return sv_.find(s, pos, count); }
   [[nodiscard]] constexpr size_type find(const charT* s, const size_type pos = 0) const { return sv_.find(s, pos); }
-  [[nodiscard]] constexpr size_type rfind(const string_view_type sv, const size_type pos = npos) const noexcept {
-    return sv_.rfind(sv, pos);
-  }
+
+  [[nodiscard]] constexpr size_type rfind(const string_view_type sv, const size_type pos = npos) const noexcept { return sv_.rfind(sv, pos); }
   [[nodiscard]] constexpr size_type rfind(const charT c, const size_type pos = npos) const noexcept { return sv_.rfind(c, pos); }
   [[nodiscard]] constexpr size_type rfind(const charT* s, const size_type pos, size_type count) const { return sv_.rfind(s, pos, count); }
   [[nodiscard]] constexpr size_type rfind(const charT* s, const size_type pos = npos) const { return sv_.rfind(s, pos); }
 
-  [[nodiscard]] constexpr size_type find_first_of(const string_view_type sv, const size_type pos = 0) const noexcept {
-    return sv_.find_first_of(sv, pos);
-  }
-  [[nodiscard]] constexpr size_type find_first_of(const charT c, const size_type pos = 0) const noexcept {
-    return sv_.find_first_of(c, pos);
-  }
-  [[nodiscard]] constexpr size_type find_first_of(const charT* s, const size_type pos, const size_type count) const {
-    return sv_.find_first_of(s, pos, count);
-  }
+  [[nodiscard]] constexpr size_type find_first_of(const string_view_type sv, const size_type pos = 0) const noexcept { return sv_.find_first_of(sv, pos); }
+  [[nodiscard]] constexpr size_type find_first_of(const charT c, const size_type pos = 0) const noexcept { return sv_.find_first_of(c, pos); }
+  [[nodiscard]] constexpr size_type find_first_of(const charT* s, const size_type pos, const size_type count) const { return sv_.find_first_of(s, pos, count); }
   [[nodiscard]] constexpr size_type find_first_of(const charT* s, const size_type pos = 0) const { return sv_.find_first_of(s, pos); }
-  [[nodiscard]] constexpr size_type find_last_of(const string_view_type sv, const size_type pos = npos) const noexcept {
-    return sv_.find_last_of(sv, pos);
-  }
-  [[nodiscard]] constexpr size_type find_last_of(const charT c, const size_type pos = npos) const noexcept {
-    return sv_.find_last_of(c, pos);
-  }
-  [[nodiscard]] constexpr size_type find_last_of(const charT* s, const size_type pos, const size_type count) const {
-    return sv_.find_last_of(s, pos, count);
-  }
+
+  [[nodiscard]] constexpr size_type find_last_of(const string_view_type sv, const size_type pos = npos) const noexcept { return sv_.find_last_of(sv, pos); }
+  [[nodiscard]] constexpr size_type find_last_of(const charT c, const size_type pos = npos) const noexcept { return sv_.find_last_of(c, pos); }
+  [[nodiscard]] constexpr size_type find_last_of(const charT* s, const size_type pos, const size_type count) const { return sv_.find_last_of(s, pos, count); }
   [[nodiscard]] constexpr size_type find_last_of(const charT* s, const size_type pos = npos) const { return sv_.find_last_of(s, pos); }
 
-  [[nodiscard]] constexpr size_type find_first_not_of(const string_view_type sv, const size_type pos = 0) const noexcept {
-    return sv_.find_first_not_of(sv, pos);
-  }
-  [[nodiscard]] constexpr size_type find_first_not_of(const charT c, const size_type pos = 0) const noexcept {
-    return sv_.find_first_not_of(c, pos);
-  }
-  [[nodiscard]] constexpr size_type find_first_not_of(const charT* s, const size_type pos, const size_type count) const {
-    return sv_.find_first_not_of(s, pos, count);
-  }
-  [[nodiscard]] constexpr size_type find_first_not_of(const charT* s, const size_type pos = 0) const {
-    return sv_.find_first_not_of(s, pos);
-  }
-  [[nodiscard]] constexpr size_type find_last_not_of(const string_view_type sv, const size_type pos = npos) const noexcept {
-    return sv_.find_last_not_of(sv, pos);
-  }
-  [[nodiscard]] constexpr size_type find_last_not_of(const charT c, const size_type pos = npos) const noexcept {
-    return sv_.find_last_not_of(c, pos);
-  }
-  [[nodiscard]] constexpr size_type find_last_not_of(const charT* s, const size_type pos, const size_type count) const {
-    return sv_.find_last_not_of(s, pos, count);
-  }
-  [[nodiscard]] constexpr size_type find_last_not_of(const charT* s, const size_type pos = npos) const {
-    return sv_.find_last_not_of(s, pos);
-  }
+  [[nodiscard]] constexpr size_type find_first_not_of(const string_view_type sv, const size_type pos = 0) const noexcept { return sv_.find_first_not_of(sv, pos); }
+  [[nodiscard]] constexpr size_type find_first_not_of(const charT c, const size_type pos = 0) const noexcept { return sv_.find_first_not_of(c, pos); }
+  [[nodiscard]] constexpr size_type find_first_not_of(const charT* s, const size_type pos, const size_type count) const { return sv_.find_first_not_of(s, pos, count); }
+  [[nodiscard]] constexpr size_type find_first_not_of(const charT* s, const size_type pos = 0) const { return sv_.find_first_not_of(s, pos); }
+
+  [[nodiscard]] constexpr size_type find_last_not_of(const string_view_type sv, const size_type pos = npos) const noexcept { return sv_.find_last_not_of(sv, pos); }
+  [[nodiscard]] constexpr size_type find_last_not_of(const charT c, const size_type pos = npos) const noexcept { return sv_.find_last_not_of(c, pos); }
+  [[nodiscard]] constexpr size_type find_last_not_of(const charT* s, const size_type pos, const size_type count) const { return sv_.find_last_not_of(s, pos, count); }
+  [[nodiscard]] constexpr size_type find_last_not_of(const charT* s, const size_type pos = npos) const { return sv_.find_last_not_of(s, pos); }
 
   /*******************************************************************************************************************/
   /**                                              comparison functions                                             **/
@@ -253,24 +226,12 @@ class basic_cstring_view {
   [[nodiscard]] friend constexpr std::strong_ordering operator<=>(const basic_cstring_view<charT, traits> lhs,
                                                                   const basic_cstring_view<charT, traits> rhs) noexcept = default;
 #else
-  [[nodiscard]] friend constexpr bool operator==(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
-    return lhs.sv_ == rhs.sv_;
-  }
-  [[nodiscard]] friend constexpr bool operator!=(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
-    return lhs.sv_ != rhs.sv_;
-  }
-  [[nodiscard]] friend constexpr bool operator<(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
-    return lhs.sv_ < rhs.sv_;
-  }
-  [[nodiscard]] friend constexpr bool operator<=(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
-    return lhs.sv_ <= rhs.sv_;
-  }
-  [[nodiscard]] friend constexpr bool operator>(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
-    return lhs.sv_ > rhs.sv_;
-  }
-  [[nodiscard]] friend constexpr bool operator>=(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept {
-    return lhs.sv_ >= rhs.sv_;
-  }
+  [[nodiscard]] friend constexpr bool operator==(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept { return lhs.sv_ == rhs.sv_; }
+  [[nodiscard]] friend constexpr bool operator!=(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept { return lhs.sv_ != rhs.sv_; }
+  [[nodiscard]] friend constexpr bool operator<(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept { return lhs.sv_ < rhs.sv_; }
+  [[nodiscard]] friend constexpr bool operator<=(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept { return lhs.sv_ <= rhs.sv_; }
+  [[nodiscard]] friend constexpr bool operator>(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept { return lhs.sv_ > rhs.sv_; }
+  [[nodiscard]] friend constexpr bool operator>=(basic_cstring_view<charT, traits> lhs, basic_cstring_view<charT, traits> rhs) noexcept { return lhs.sv_ >= rhs.sv_; }
 #endif
 
   /*******************************************************************************************************************/
