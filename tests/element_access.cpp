@@ -21,15 +21,15 @@ TEST_CASE("cstring_view element access member functions", "[element_access]") {
 
     SECTION("operator[] member function") {
         for (std::size_t i = 0; i < 6; ++i) {
-            CHECK(csv[i] == '0' + i);
-            CHECK(const_csv[i] == '0' + i);
+            CHECK(csv[i] == static_cast<char>('0' + i));
+            CHECK(const_csv[i] == static_cast<char>('0' + i));
         }
     }
 
     SECTION("at() member function") {
         for (std::size_t i = 0; i < 6; ++i) {
-            CHECK(csv.at(i) == '0' + i);
-            CHECK(const_csv.at(i) == '0' + i);
+            CHECK(csv.at(i) == static_cast<char>('0' + i));
+            CHECK(const_csv.at(i) == static_cast<char>('0' + i));
         }
 
         CHECK_THROWS_AS(csv.at(6), std::out_of_range);
