@@ -10,6 +10,10 @@
 #include <string>       // std::string
 #include <string_view>  // std::string_view, std::basic_string_view, std::hash
 
+#if __has_include(<format>)
+#include <format>  // std::format
+#endif
+
 #include "catch/catch.hpp"
 #include "cstring_view.hpp"
 
@@ -21,6 +25,16 @@ TEST_CASE("cstring_view non-member functions", "[non_member_function]") {
         out << csv;
         CHECK(out.str() == std::string{ "Hello, World!" });
     }
+
+#if defined(__cpp_lib_format)
+    SECTION("std::format") {
+        const cpp_util::cstring_view csv{ "Hello, World!" };
+        std::ostringstream out{};
+
+        out << std::format("{}", csv);
+        CHECK(out.str() == std::string{ "Hello, World!" });
+    }
+#endif
 }
 
 TEST_CASE("dynarray non-member functions", "[non-member]") {

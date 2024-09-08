@@ -16,12 +16,16 @@
 #include <string>       // std::basic_string, std::char_traits
 #include <string_view>  // std::basic_string_view
 
-#if defined(__cpp_impl_three_way_comparison) && defined(__cpp_lib_three_way_comparison)
+#if __has_include(<compare>)
 #include <compare>  // std::strong_ordering
 #endif
 
-#if defined(__cpp_lib_ranges)
+#if __has_include(<ranges>)
 #include <ranges>  // std::enable_borrowed_range, std::enable_view
+#endif
+
+#if __has_include(<format>)
+#include <format>  // std::formatter, std::format_context
 #endif
 
 namespace cpp_util {
@@ -339,6 +343,18 @@ template <typename charT, typename traits>
 inline constexpr bool std::ranges::enable_borrowed_range<cpp_util::basic_cstring_view<charT, traits>> = true;
 template <typename charT, typename traits>
 inline constexpr bool std::ranges::enable_view<cpp_util::basic_cstring_view<charT, traits>> = true;
+#endif
+
+/*******************************************************************************************************************/
+/**                                             std::format support                                               **/
+/*******************************************************************************************************************/
+#if defined(__cpp_lib_format)
+template <typename charT, typename traits>
+struct std::formatter<cpp_util::basic_cstring_view<charT, traits>> : std::formatter<std::basic_string_view<charT, traits>> {
+    auto format(const cpp_util::basic_cstring_view<charT, traits>& csv, std::format_context& ctx) const {
+        return std::formatter<std::basic_string_view<charT, traits>>::format(static_cast<std::basic_string_view<charT, traits>>(csv), ctx);
+    }
+};
 #endif
 
 #endif  // CPP_util_CSTRING_VIEW_HPP

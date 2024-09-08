@@ -5,6 +5,9 @@
 #include <ios>          // std::boolalpha
 #include <string>       // std::string
 #include <string_view>  // std::string_view
+#if __has_include(<format>)
+#include <format>  // std::format
+#endif
 
 void print(cpp_util::cstring_view str = cpp_util::cstring_view{});
 
@@ -32,6 +35,10 @@ int main() {
 
   using namespace cpp_util::string_view_literals;
   auto csv = "Hello, World!"_csv;
+
+#if defined(__cpp_lib_format)
+  std::cout << std::format("std::format: {}", csv) << std::endl;
+#endif
 
   for (const char c : csv) {
     std::cout << c << ' ';
