@@ -5,6 +5,7 @@
  * Implements tests for the non-member functions of the cpp_util::cstring_view class.
  */
 
+#include <cstring>      // std::strcmp
 #include <sstream>      // std::ostringstream
 #include <string>       // std::string
 #include <string_view>  // std::string_view, std::basic_string_view, std::hash
@@ -19,6 +20,17 @@ TEST_CASE("cstring_view non-member functions", "[non_member_function]") {
 
         out << csv;
         CHECK(out.str() == std::string{ "Hello, World!" });
+    }
+}
+
+TEST_CASE("dynarray non-member functions", "[non-member]") {
+    SECTION("swap() free function") {
+        cpp_util::cstring_view csv1{ "foo" };
+        cpp_util::cstring_view csv2{ "bar" };
+
+        cpp_util::swap(csv1, csv2);
+        CHECK(std::strcmp(csv1.c_str(), "bar") == 0);
+        CHECK(std::strcmp(csv2.c_str(), "foo") == 0);
     }
 }
 
