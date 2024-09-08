@@ -6,9 +6,7 @@
 #include <string>       // std::string
 #include <string_view>  // std::string_view
 
-void print(cpp_util::cstring_view str = cpp_util::cstring_view{}) {
-    std::cout << str << "\n";
-}
+void print(cpp_util::cstring_view str = cpp_util::cstring_view{});
 
 int main() {
   {
@@ -83,4 +81,8 @@ int main() {
   std::cout << csv << "\n";
 
   return 0;
+}
+
+void print(cpp_util::cstring_view str) {
+    std::cout << str << "\n";
 }
