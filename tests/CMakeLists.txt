@@ -4,16 +4,17 @@ add_library(Catch INTERFACE)
 target_include_directories(Catch INTERFACE ${CPP_UTIL_CATCH_INCLUDE_DIR})
 
 # specify test source files and build executable
-#set(CPP_UTIL_TEST_SOURCES
-#        ${CMAKE_CURRENT_SOURCE_DIR}/construction_and_assignment.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/iterators.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/capacity.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/element_access.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/modifiers.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/string_operations.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/searching.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/comparison.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/non_member_functions.cpp)
+set(CPP_UTIL_TEST_SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/construction_and_assignment.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/iterators.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/capacity.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/element_access.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/modifiers.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/string_operations.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/searching.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/comparison.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/non_member_functions.cpp
+)
 
 
 # function to add test cases using different C++ standards
