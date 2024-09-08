@@ -10,12 +10,9 @@ add_executable(cstring_view examples.cpp cstring_view.hpp)
 include(CheckCXXCompilerFlag)
 
 # Check for standard to use
-check_cxx_compiler_flag(-std=c++23 CPP_UTIL_HAS_FLAG_STD_CXX23)
 check_cxx_compiler_flag(-std=c++20 CPP_UTIL_HAS_FLAG_STD_CXX20)
 check_cxx_compiler_flag(-std=c++17 CPP_UTIL_HAS_FLAG_STD_CXX17)
-if (CPP_UTIL_HAS_FLAG_STD_CXX23)
-    target_compile_features(cstring_view PRIVATE cxx_std_23)
-elseif (CPP_UTIL_HAS_FLAG_STD_CXX20)
+if (CPP_UTIL_HAS_FLAG_STD_CXX20)
     target_compile_features(cstring_view PRIVATE cxx_std_20)
 elseif (CPP_UTIL_HAS_FLAG_STD_CXX17)
     target_compile_features(cstring_view PRIVATE cxx_std_17)
