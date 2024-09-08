@@ -23,7 +23,7 @@
       "generator": "Unix Makefiles",
       "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "-Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Werror"
+        "CMAKE_CXX_FLAGS": "-Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-reserved-identifier -Werror"
       }
     },
     {
