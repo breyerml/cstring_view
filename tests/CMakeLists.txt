@@ -17,37 +17,33 @@ set(CPP_UTIL_TEST_SOURCES
 )
 
 
-# function to add test cases using different C++ standards
-include(CheckCXXCompilerFlag)
-function(register_test cxx_standard_flag)
-    # if MSVC is used, change compiler flag
-    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        string(REPLACE "=" ":" cxx_standard_flag ${cxx_standard_flag})
-    endif ()
-    string(SUBSTRING ${cxx_standard_flag} 8 -1 CXX_STANDARD_VALUE)
+## function to add test cases using different C++ standards
+function(register_test cxx_standard)
+    message(STATUS "Generating tests for C++${cxx_standard}.")
+    # create executable
+    set(CPP_UTIL_TEST_CASE_NAME "test_cases_cxx${cxx_standard}")
+    add_executable(${CPP_UTIL_TEST_CASE_NAME} ${CPP_UTIL_CATCH_INCLUDE_DIR}/catch_main.cpp ${CPP_UTIL_TEST_SOURCES})
+    target_include_directories(${CPP_UTIL_TEST_CASE_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
+    # link against Catch
+    target_link_libraries(${CPP_UTIL_TEST_CASE_NAME} Catch)
+    # set requested C++ standard
+    set_property(TARGET cstring_view PROPERTY CXX_STANDARD ${cxx_standard})
 
-    # check if compiler flag is supported
-    check_cxx_compiler_flag(${cxx_standard_flag} HAS_FLAG_STD_CXX_${CXX_STANDARD_VALUE})
-    if (${HAS_FLAG_STD_CXX_${CXX_STANDARD_VALUE}})
-        # create executable
-        string(SUBSTRING ${cxx_standard_flag} 8 -1 CXX_STANDARD_VALUE)
-        set(CPP_UTIL_TEST_CASE_NAME "test_cases_cxx${CXX_STANDARD_VALUE}")
-        add_executable(${CPP_UTIL_TEST_CASE_NAME} ${CPP_UTIL_CATCH_INCLUDE_DIR}/catch_main.cpp ${CPP_UTIL_TEST_SOURCES})
-        target_include_directories(${CPP_UTIL_TEST_CASE_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
-        # link against Catch
-        target_link_libraries(${CPP_UTIL_TEST_CASE_NAME} Catch)
-        # set requested C++ standard
-        target_compile_options(${CPP_UTIL_TEST_CASE_NAME} PUBLIC ${cxx_standard_flag})
+    # add test for CTest
+    set(CPP_UTIL_TEST_NAME "test_cxx${cxx_standard}")
+    add_test(NAME ${CPP_UTIL_TEST_NAME} COMMAND ${CPP_UTIL_TEST_CASE_NAME})
+endfunction ()
 
-        # add test for CTest
-        set(CPP_UTIL_TEST_NAME "test_cxx${CXX_STANDARD_VALUE}")
-        add_test(NAME ${CPP_UTIL_TEST_NAME} COMMAND ${CPP_UTIL_TEST_CASE_NAME})
-    endif ()
-    unset(${HAS_FLAG_STD_CXX_${CXX_STANDARD_VALUE}} CACHE)
-endfunction()
+# generate list of all supported C++ standards
+set(CPP_UTIL_CURRENT_CXX_STANDARD ${CMAKE_CXX_STANDARD_LATEST})
+set(CPP_UTIL_SUPPORTED_CXX_STANDARDS)
+while (NOT ${CPP_UTIL_CURRENT_CXX_STANDARD} EQUAL 17)  # C++17 ist the oldest supported C++ standard for cpp_util::cstring_view
+    list(APPEND CPP_UTIL_SUPPORTED_CXX_STANDARDS ${CPP_UTIL_CURRENT_CXX_STANDARD})
+    math(EXPR CPP_UTIL_CURRENT_CXX_STANDARD "${CPP_UTIL_CURRENT_CXX_STANDARD} - 3")
+endwhile ()
+list(APPEND CPP_UTIL_SUPPORTED_CXX_STANDARDS ${CPP_UTIL_CURRENT_CXX_STANDARD})
 
-
-# register tests
-register_test(-std=c++17)
-register_test(-std=c++20)
-register_test(-std=c++23)
+# register all tests
+foreach (CPP_UTIL_CXX_STANDARD IN LISTS CPP_UTIL_SUPPORTED_CXX_STANDARDS)
+    register_test(${CPP_UTIL_CXX_STANDARD})
+endforeach ()
