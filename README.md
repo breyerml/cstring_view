@@ -35,6 +35,8 @@ potentially break the invariant of null termination.
 
 - Added ranges helper templates, which are only enabled if the feature test macro `__cpp_lib_ranges` is defined.
 
+- Added support for `std::format` if the feature test macro `__cpp_lib_format` is defined.
+
 - Added `[[nodiscard]]` to almost all functions.
 
 ## Prerequisites
