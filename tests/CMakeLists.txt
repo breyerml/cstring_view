@@ -27,7 +27,7 @@ function(register_test cxx_standard)
     # link against Catch
     target_link_libraries(${CPP_UTIL_TEST_CASE_NAME} Catch)
     # set requested C++ standard
-    set_property(TARGET cstring_view PROPERTY CXX_STANDARD ${cxx_standard})
+    set_property(TARGET ${CPP_UTIL_TEST_CASE_NAME} PROPERTY CXX_STANDARD ${cxx_standard})
 
     # add test for CTest
     set(CPP_UTIL_TEST_NAME "test_cxx${cxx_standard}")
