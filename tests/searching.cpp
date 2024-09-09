@@ -5,11 +5,12 @@
  * Implements tests for the searching member functions of the cpp_util::cstring_view class.
  */
 
-#include <string_view>  // std::string_view
-#include <cstring>      // std::strcmp
+#include "cstring_view.hpp"
 
 #include "catch/catch.hpp"
-#include "cstring_view.hpp"
+
+#include <string_view>  // std::string_view
+#include <cstring>      // std::strcmp
 
 TEST_CASE("cstring_view searching", "[searching]") {
     {

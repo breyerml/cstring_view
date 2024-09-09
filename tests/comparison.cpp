@@ -5,8 +5,9 @@
  * Implements tests for the comparison member functions of the cpp_util::cstring_view class.
  */
 
-#include "catch/catch.hpp"
 #include "cstring_view.hpp"
+
+#include "catch/catch.hpp"
 
 TEST_CASE("cstring_view comparison", "[comparison]") {
     const cpp_util::cstring_view csv1{ "foo" };

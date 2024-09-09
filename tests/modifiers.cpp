@@ -5,10 +5,11 @@
  * Implements tests for the modifier member functions of the cpp_util::cstring_view class.
  */
 
-#include <cstring>  // std::strcmp
+#include "cstring_view.hpp"
 
 #include "catch/catch.hpp"
-#include "cstring_view.hpp"
+
+#include <cstring>  // std::strcmp
 
 TEST_CASE("cstring_view modifiers", "[modifier]") {
     cpp_util::cstring_view csv1{ "foo" };

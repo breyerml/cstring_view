@@ -5,11 +5,12 @@
  * Implements tests for the element access member functions of the cpp_util::cstring_view class.
  */
 
-#include <cstddef>      // std::size_t
-#include <string_view>  // std::string_view
+#include "cstring_view.hpp"
 
 #include "catch/catch.hpp"
-#include "cstring_view.hpp"
+
+#include <cstddef>      // std::size_t
+#include <string_view>  // std::string_view
 
 TEST_CASE("cstring_view element access member functions", "[element_access]") {
     cpp_util::cstring_view csv{ "012345" };

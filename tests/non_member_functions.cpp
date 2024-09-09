@@ -5,17 +5,20 @@
  * Implements tests for the non-member functions of the cpp_util::cstring_view class.
  */
 
+#include "cstring_view.hpp"
+
+#include "catch/catch.hpp"
+
 #include <cstring>      // std::strcmp
 #include <sstream>      // std::ostringstream
 #include <string>       // std::string
 #include <string_view>  // std::string_view, std::basic_string_view, std::hash
 
 #if __has_include(<format>)
-#include <format>  // std::format
-#endif
 
-#include "catch/catch.hpp"
-#include "cstring_view.hpp"
+#include <format>  // std::format
+
+#endif
 
 TEST_CASE("cstring_view non-member functions", "[non_member_function]") {
     SECTION("stream insertion operator") {

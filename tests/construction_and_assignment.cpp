@@ -5,13 +5,14 @@
  * Implements tests for the constructors and assignment operators of the cpp_util::cstring_view class.
  */
 
+#include "cstring_view.hpp"
+
+#include "catch/catch.hpp"
+
 #include <algorithm>    // std::equal
 #include <cstring>      // std::strcmp
 #include <string>       // std::string
 #include <string_view>  // std::string_view
-
-#include "catch/catch.hpp"
-#include "cstring_view.hpp"
 
 TEST_CASE("cstring_view constructors", "[construction]") {
     SECTION("default constructor") {

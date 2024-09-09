@@ -5,8 +5,9 @@
  * Implements tests for the iterator member functions of the cpp_util::cstring_view class.
  */
 
-#include "catch/catch.hpp"
 #include "cstring_view.hpp"
+
+#include "catch/catch.hpp"
 
 TEST_CASE("cstring_view iterator member functions", "[iterator_support]") {
     const cpp_util::cstring_view csv{ "Hello, World!" };

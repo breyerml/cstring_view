@@ -5,12 +5,13 @@
  * Implements tests for the string operation member functions of the cpp_util::cstring_view class.
  */
 
+#include "cstring_view.hpp"
+
+#include "catch/catch.hpp"
+
 #include <cstring>      // std::strcmp
 #include <string>       // std::string
 #include <string_view>  // std::string_view
-
-#include "catch/catch.hpp"
-#include "cstring_view.hpp"
 
 TEST_CASE("cstring_view string operations", "[string_operations]") {
     SECTION("copy") {

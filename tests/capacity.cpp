@@ -5,10 +5,11 @@
  * Implements tests for the capacity member functions of the cpp_util::cstring_view class.
  */
 
-#include <string_view>  // std::string_view
+#include "cstring_view.hpp"
 
 #include "catch/catch.hpp"
-#include "cstring_view.hpp"
+
+#include <string_view>  // std::string_view
 
 TEST_CASE("cstring_view capacity member functions", "[capacity]") {
     cpp_util::cstring_view default_csv{};
