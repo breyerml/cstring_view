@@ -46,6 +46,10 @@ TEST_CASE("cstring_view non-member functions", "[non_member_function]") {
         cpp_util::swap(csv1, csv2);
         CHECK(std::strcmp(csv1.c_str(), "bar") == 0);
         CHECK(std::strcmp(csv2.c_str(), "foo") == 0);
+
+        std::swap(csv1, csv2);
+        CHECK(std::strcmp(csv1.c_str(), "foo") == 0);
+        CHECK(std::strcmp(csv2.c_str(), "bar") == 0);
     }
 }
 
