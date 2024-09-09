@@ -1,4 +1,4 @@
-<!-- Please refer to the contributing documentation for any questions on submitting a pull request: https://github.com/arkantos493/dynarray/blob/main/CONTRIBUTING.md -->
+<!-- Please refer to the contributing documentation for any questions on submitting a pull request: https://github.com/breyerml/cstring_view/blob/main/CONTRIBUTING.md -->
 
 ## Pull request checklist
 

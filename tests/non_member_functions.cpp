@@ -35,9 +35,7 @@ TEST_CASE("cstring_view non-member functions", "[non_member_function]") {
         CHECK(out.str() == std::string{ "Hello, World!" });
     }
 #endif
-}
 
-TEST_CASE("dynarray non-member functions", "[non-member]") {
     SECTION("swap() free function") {
         cpp_util::cstring_view csv1{ "foo" };
         cpp_util::cstring_view csv2{ "bar" };

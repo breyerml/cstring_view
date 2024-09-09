@@ -9,7 +9,7 @@ Pull requests are the best way to propose changes to the codebase:
 
 ## Report bugs using Github's issues
 
-Report a bug by [opening a new issue](https://github.com/arkantos493/dynarray/issues).
+Report a bug by [opening a new issue](https://github.com/breyerml/cstring_view/issues).
 
 ## License
 
