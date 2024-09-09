@@ -6,8 +6,8 @@
  * Also see: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1402r0.pdf.
  */
 
-#ifndef CPP_util_CSTRING_VIEW_HPP
-#define CPP_util_CSTRING_VIEW_HPP
+#ifndef CPP_UTIL_CSTRING_VIEW_HPP
+#define CPP_UTIL_CSTRING_VIEW_HPP
 
 #include <cassert>      // assert
 #include <cstddef>      // std::size_t
@@ -357,4 +357,4 @@ struct std::formatter<cpp_util::basic_cstring_view<charT, traits>> : std::format
 };
 #endif
 
-#endif  // CPP_util_CSTRING_VIEW_HPP
+#endif  // CPP_UTIL_CSTRING_VIEW_HPP
