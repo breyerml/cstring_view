@@ -23,9 +23,8 @@ function(register_test cxx_standard)
     # create executable
     set(CPP_UTIL_TEST_CASE_NAME "test_cases_cxx${cxx_standard}")
     add_executable(${CPP_UTIL_TEST_CASE_NAME} ${CPP_UTIL_CATCH_INCLUDE_DIR}/catch_main.cpp ${CPP_UTIL_TEST_SOURCES})
-    target_include_directories(${CPP_UTIL_TEST_CASE_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
     # link against Catch
-    target_link_libraries(${CPP_UTIL_TEST_CASE_NAME} Catch)
+    target_link_libraries(${CPP_UTIL_TEST_CASE_NAME} cstring_view Catch)
     # set requested C++ standard
     set_property(TARGET ${CPP_UTIL_TEST_CASE_NAME} PROPERTY CXX_STANDARD ${cxx_standard})
 

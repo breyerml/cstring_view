@@ -4,20 +4,34 @@ project(cstring_view
         DESCRIPTION "Implementation of P1402R0 for a cstring_view."
         LANGUAGES CXX)
 
-add_executable(cstring_view examples.cpp cstring_view.hpp)
+# --------------------
+# Options.
+# --------------------
 
-# set the latest CXX standard if it is newer than C++17
-set(CPP_UTIL_UNSUPPORTED_CXX_STANDARDS 98 11 14)
-list(FIND CPP_UTIL_UNSUPPORTED_CXX_STANDARDS ${CMAKE_CXX_STANDARD_LATEST} CPP_UTIL_UNSUPPORTED_CXX_STANDARDS_INDEX)
-if(CPP_UTIL_UNSUPPORTED_CXX_STANDARDS_INDEX EQUAL -1)
-    message(STATUS "Setting C++ standard to ${CMAKE_CXX_STANDARD_LATEST}.")
-    set_property(TARGET cstring_view PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD_LATEST})
-else()
-    message(FATAL_ERROR "At least C++17 must be supported by the used compiler, but the latest supported standard is ${CMAKE_CXX_STANDARD_LATEST}!")
+option(CPP_UTIL_BUILD_EXAMPLES "Build examples")
+option(CPP_UTIL_ENABLE_TESTS "Enable testing using Catch2")
+
+# --------------------
+# Project Targets.
+# --------------------
+
+add_library(cstring_view INTERFACE)
+target_include_directories(cstring_view INTERFACE include)
+target_compile_features(cstring_view INTERFACE cxx_std_17)
+
+# --------------------
+# Examples.
+# --------------------
+
+if (CPP_UTIL_BUILD_EXAMPLES)
+    message(STATUS "Build examples.")
+    add_subdirectory(examples)
 endif()
 
-# enable testing
-option(CPP_UTIL_ENABLE_TESTS "Enable testing using Catch2" OFF)
+# --------------------
+# Testing.
+# --------------------
+
 if (CPP_UTIL_ENABLE_TESTS)
     message(STATUS "Enabled testing using Catch2.")
     enable_testing()

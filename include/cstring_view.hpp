@@ -10,6 +10,7 @@
 #define CPP_UTIL_CSTRING_VIEW_HPP
 
 #include <cassert>      // assert
+#ifndef CPP_UTIL_CSTRING_VIEW_USE_STD_MODULE
 #include <cstddef>      // std::size_t
 #include <functional>   // std::hash
 #include <ostream>      // std::basic_ostream
@@ -26,6 +27,7 @@
 
 #if __has_include(<format>)
 #include <format>  // std::formatter, std::format_context
+#endif
 #endif
 
 namespace cpp_util {
@@ -272,21 +274,21 @@ inline namespace string_view_literals {
 /*******************************************************************************************************************/
 /**                                     suffix for basic_cstring_view literals                                    **/
 /*******************************************************************************************************************/
-[[nodiscard]] constexpr cpp_util::cstring_view operator"" _csv(const char* str, const std::size_t len) noexcept {
+[[nodiscard]] constexpr cpp_util::cstring_view operator""_csv(const char* str, const std::size_t len) noexcept {
   return { cpp_util::cstring_view::null_terminated, str, len };
 }
 #if defined(__cpp_char8_t)
-[[nodiscard]] constexpr cpp_util::u8cstring_view operator"" _csv(const char8_t* str, const std::size_t len) noexcept {
+[[nodiscard]] constexpr cpp_util::u8cstring_view operator""_csv(const char8_t* str, const std::size_t len) noexcept {
   return { cpp_util::u8cstring_view::null_terminated, str, len };
 }
 #endif
-[[nodiscard]] constexpr cpp_util::u16cstring_view operator"" _csv(const char16_t* str, const std::size_t len) noexcept {
+[[nodiscard]] constexpr cpp_util::u16cstring_view operator""_csv(const char16_t* str, const std::size_t len) noexcept {
   return { cpp_util::u16cstring_view::null_terminated, str, len };
 }
-[[nodiscard]] constexpr cpp_util::u32cstring_view operator"" _csv(const char32_t* str, const std::size_t len) noexcept {
+[[nodiscard]] constexpr cpp_util::u32cstring_view operator""_csv(const char32_t* str, const std::size_t len) noexcept {
   return { cpp_util::u32cstring_view::null_terminated, str, len };
 }
-[[nodiscard]] constexpr cpp_util::wcstring_view operator"" _csv(const wchar_t* str, const std::size_t len) noexcept {
+[[nodiscard]] constexpr cpp_util::wcstring_view operator""_csv(const wchar_t* str, const std::size_t len) noexcept {
   return { cpp_util::wcstring_view::null_terminated, str, len };
 }
 
