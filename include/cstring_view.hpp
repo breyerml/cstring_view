@@ -64,7 +64,8 @@ class basic_cstring_view {
   constexpr basic_cstring_view() noexcept = default;
   constexpr basic_cstring_view(const basic_cstring_view&) noexcept = default;
   constexpr basic_cstring_view(const charT* s) : sv_{ s } {}
-  constexpr basic_cstring_view(const std::basic_string<charT, traits>& str) : sv_{ str } {}
+  template <typename Allocator>
+  constexpr basic_cstring_view(const std::basic_string<charT, traits, Allocator>& str) : sv_{ str } {}
 
   constexpr basic_cstring_view(null_terminated_t, const charT* s, const size_type len) : sv_{ s, len } {}
   constexpr basic_cstring_view(null_terminated_t, const string_view_type& sv) noexcept : sv_{ sv } {}
