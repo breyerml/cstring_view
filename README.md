@@ -53,9 +53,9 @@ Building with GCC, Clang, or MSVC can be done using CMake presets.
 ```bash
 git clone git@github.com:breyerml/cstring_view.git
 cd cstring_view
-cmake --preset [preset] .
+cmake --preset [preset] -DCPP_UTIL_BUILD_EXAMPLES .
 cmake --build --preset [preset]
-./build/cstring_view
+./build/cstring_view_examples
 ```
 
 Where `[preset]` is one of `gcc`, `clang`, or `msvc`.
